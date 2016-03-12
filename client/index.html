@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="sl">
+<head>
+	<meta charset="UTF-8">
+	<title>Pralni Stroj</title>
+	<link rel="manifest" href="manifest.json">
+  <style>
+    html { height: 100%; }
+    body {
+      align-items: center;
+      display: flex;
+      height: 100%;
+      justify-content: center;
+      margin: 0;
+    }
+
+		.stopped, .active .running { display: block; }
+		.running, .active .stopped { display: none; }
+
+    .pending  { background-color: #e0e0e0; }
+    .inactive { background-color: #e57373; }
+    .active   { background-color: #81c784; }
+
+    img {
+      max-width: 400px;
+      width: 85%;
+    }
+  </style>
+  <script>
+		function subscribeWorker(id) {
+			var request = new XMLHttpRequest();
+	    request.open('GET', `/api/register?id=${id}`, true);
+	    request.send();
+		}
+
+		if ('serviceWorker' in navigator) {
+	    navigator.serviceWorker.register('serviceWorker.js').then(function(reg) {
+        reg.pushManager.subscribe({
+          userVisibleOnly: true
+        }).then(function(sub) {
+					subscribeWorker(sub.endpoint.split('/gcm/send/')[1]);
+        });
+	    })
+		}
+  </script>
+</head>
+<body class="pending">
+  <img class="stopped" src="img/stopped.svg" alt="" />
+  <img class="running" src="img/running.svg" alt="" />
+</body>
+</html>
