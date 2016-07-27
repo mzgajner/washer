@@ -28,20 +28,26 @@
   </style>
   <script>
 		function subscribeWorker(id) {
-			var request = new XMLHttpRequest();
-	    request.open('GET', `/api/register?id=${id}`, true);
-	    request.send();
+			var request = new XMLHttpRequest()
+	    request.open('GET', `/api/register?id=${id}`, true)
+	    request.send()
 		}
 
-		if ('serviceWorker' in navigator) {
-	    navigator.serviceWorker.register('serviceWorker.js').then(function(reg) {
-        reg.pushManager.subscribe({
-          userVisibleOnly: true
-        }).then(function(sub) {
-					subscribeWorker(sub.endpoint.split('/gcm/send/')[1]);
-        });
-	    })
+		function subscribeToNofitications() {
+			if ('serviceWorker' in navigator) {
+				navigator.serviceWorker.register('serviceWorker.js').then(function(reg) {
+					reg.pushManager.subscribe({
+						userVisibleOnly: true
+					}).then(function(sub) {
+						subscribeWorker(sub.endpoint.split('/gcm/send/')[1])
+					})
+				})
+			}
 		}
+
+		document.addEventListener('DOMContentLoaded', function(event) {
+			document.body.addEventListener('click', subscribeToNofitications)
+	  })
   </script>
 </head>
 <body class="pending">
