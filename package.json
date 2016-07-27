@@ -1,8 +1,8 @@
 {
   "name": "washer",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Simple app to check washer status and send notifications when washing is done.",
-  "main": "index.js",
+  "main": "app.js",
   "dependencies": {
     "finalhandler": "^0.5.0",
     "promise": "^7.1.1",
@@ -15,7 +15,8 @@
     "eslint-plugin-vue": "^0.1.1"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
   },
   "repository": {
     "type": "git",
