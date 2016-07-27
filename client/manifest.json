@@ -1,4 +1,6 @@
 {
   "name": "Washer",
-  "gcm_sender_id": "806065617495"
+  "gcm_sender_id": "806065617495",
+  "permissions": [ "notifications", "http://pralni-stroj.herokuapp.com/"],
+  "icon": "img/notification-icon.png"
 }
