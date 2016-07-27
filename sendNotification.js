@@ -1,10 +1,9 @@
 var http = require('http')
-var config = require('./config.json')
 
-module.exports = function(registration_ids) {
+module.exports = function (registration_ids) {
   var postData = JSON.stringify({
     registration_ids : registration_ids
-  });
+  })
 
   var options = {
     hostname : 'android.googleapis.com',
@@ -15,14 +14,14 @@ module.exports = function(registration_ids) {
       'Authorization' : `key=${process.env.API_KEY}`,
       'Content-Length': Buffer.byteLength(postData)
     }
-  };
+  }
 
-  var request = http.request(options);
+  var request = http.request(options)
 
   request.on('error', (e) => {
-    console.log(`problem with request: ${e.message}`);
-  });
+    console.log(`problem with request: ${e.message}`)
+  })
 
-  request.write(postData);
-  request.end();
+  request.write(postData)
+  request.end()
 }
