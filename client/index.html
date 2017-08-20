@@ -28,27 +28,27 @@
     }
   </style>
   <script>
-		function subscribeWorker(id) {
-			var request = new XMLHttpRequest()
+		const subscribeWorker = id => {
+			const request = new XMLHttpRequest()
 	    request.open('GET', `/api/register?id=${id}`, true)
 	    request.send()
 		}
 
-		function subscribeToNofitications() {
+		const subscribeToNofitications = () => {
 			if ('serviceWorker' in navigator) {
-				navigator.serviceWorker.register('serviceWorker.js').then(function(reg) {
+				navigator.serviceWorker.register('serviceWorker.js').then(reg =>
 					reg.pushManager.subscribe({
 						userVisibleOnly: true
-					}).then(function(sub) {
+					}).then(sub =>
 						subscribeWorker(sub.endpoint.split('/gcm/send/')[1])
-					})
-				})
+					)
+				)
 			}
 		}
 
-		document.addEventListener('DOMContentLoaded', function(event) {
+		document.addEventListener('DOMContentLoaded', event =>
 			document.body.addEventListener('click', subscribeToNofitications)
-	  })
+	  );
   </script>
 </head>
 <body class="pending">

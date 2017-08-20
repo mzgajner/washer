@@ -1,13 +1,15 @@
 /* global self */
 
-self.addEventListener('install', function (event) {
+self.addEventListener('install', event => {
   self.skipWaiting()
   console.log('Installed', event)
 })
-self.addEventListener('activate', function (event) {
+
+self.addEventListener('activate', event => {
   console.log('Activated', event)
 })
-self.addEventListener('push', function (event) {
+
+self.addEventListener('push', event => {
   event.waitUntil(
     self.registration.showNotification('Pralni stroj je končal.', {
       body: 'Poberi cote ven, da ne zgnijejo.',

@@ -1,14 +1,14 @@
-var http = require('http')
-var url = require('url')
-var finalhandler = require('finalhandler')
-var serveStatic = require('serve-static')
-var sendNotification = require('./sendNotification')
+const http = require('http')
+const url = require('url')
+const finalhandler = require('finalhandler')
+const serveStatic = require('serve-static')
+const sendNotification = require('./sendNotification')
 
-var serve = serveStatic('./client')
-var registrationIds = []
+const serve = serveStatic('./client')
+const registrationIds = []
 
-var server = http.createServer(function (req, res) {
-  var parsedUrl = url.parse(req.url, true)
+const server = http.createServer((req, res) => {
+  const parsedUrl = url.parse(req.url, true)
 
   if (parsedUrl.pathname === '/api/send') {
     sendNotification(registrationIds)
@@ -24,7 +24,7 @@ var server = http.createServer(function (req, res) {
     console.log('registered', registrationIds)
   }
   else {
-    var done = finalhandler(req, res)
+    const done = finalhandler(req, res)
     serve(req, res, done)
   }
 })

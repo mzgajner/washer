@@ -1,11 +1,11 @@
-var http = require('http')
+const http = require('http')
 
-module.exports = function (registration_ids) {
-  var postData = JSON.stringify({
+module.exports = (registration_ids) => {
+  const postData = JSON.stringify({
     registration_ids : registration_ids
   })
 
-  var options = {
+  const options = {
     hostname : 'android.googleapis.com',
     path     : '/gcm/send',
     method   : 'POST',
@@ -16,10 +16,10 @@ module.exports = function (registration_ids) {
     }
   }
 
-  var request = http.request(options)
+  const request = http.request(options)
 
-  request.on('error', (e) => {
-    console.log(`problem with request: ${e.message}`)
+  request.on('error', e => {
+    throw new Error(`problem with request: ${e.message}`);
   })
 
   request.write(postData)
