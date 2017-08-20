@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="sl">
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, user-scalable=no" />
-	<title>Pralni Stroj</title>
-	<link rel="manifest" href="manifest.json">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, user-scalable=no" />
+  <title>Pralni Stroj</title>
+  <link rel="manifest" href="manifest.json">
   <style>
     html { height: 100%; }
     body {
@@ -15,8 +15,8 @@
       margin: 0;
     }
 
-		.stopped, .active .running { display: block; }
-		.running, .active .stopped { display: none; }
+    .stopped, .active .running { display: block; }
+    .running, .active .stopped { display: none; }
 
     .pending  { background-color: #e0e0e0; }
     .inactive { background-color: #e57373; }
@@ -28,28 +28,28 @@
     }
   </style>
   <script>
-		const subscribeWorker = id => {
-			const request = new XMLHttpRequest()
-	    request.open('GET', `/api/register?id=${id}`, true)
-	    request.send()
-		}
+    const subscribeWorker = (id) => {
+      const request = new XMLHttpRequest();
+      request.open('GET', `/api/register?id=${id}`, true);
+      request.send();
+    };
 
-		const subscribeToNofitications = () => {
-			if ('serviceWorker' in navigator) {
-				navigator.serviceWorker.register('serviceWorker.js').then(reg =>
-					reg.pushManager.subscribe({
-						userVisibleOnly: true
-					}).then(sub =>
-						subscribeWorker(sub.endpoint.split('/gcm/send/')[1])
-					)
-				)
-			}
-		}
+    const subscribeToNofitications = () => {
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('serviceWorker.js').then(reg =>
+          reg.pushManager.subscribe({
+            userVisibleOnly: true,
+          }).then(sub =>
+            subscribeWorker(sub.endpoint.split('/gcm/send/')[1]),
+          ),
+        );
+      }
+    };
 
-		document.addEventListener('DOMContentLoaded', event =>
-			document.body.addEventListener('click', subscribeToNofitications)
-	  );
-  </script>
+    document.addEventListener('DOMContentLoaded', () =>
+      document.body.addEventListener('click', subscribeToNofitications),
+    );
+</script>
 </head>
 <body class="pending">
   <img class="stopped" src="img/stopped.svg" alt="" />
