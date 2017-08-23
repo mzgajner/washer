@@ -18,40 +18,16 @@
     .stopped, .active .running { display: block; }
     .running, .active .stopped { display: none; }
 
-    .pending  { background-color: #e0e0e0; }
-    .inactive { background-color: #e57373; }
-    .active   { background-color: #81c784; }
+    .inactive { background-color: #81c784; }
+    .active   { background-color: #e57373; }
 
     img {
       max-width: 400px;
       width: 85%;
     }
   </style>
-  <script>
-    const subscribeWorker = (id) => {
-      const request = new XMLHttpRequest();
-      request.open('GET', `/api/register?id=${id}`, true);
-      request.send();
-    };
-
-    const subscribeToNofitications = () => {
-      if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('serviceWorker.js').then(reg =>
-          reg.pushManager.subscribe({
-            userVisibleOnly: true,
-          }).then(sub =>
-            subscribeWorker(sub.endpoint.split('/gcm/send/')[1]),
-          ),
-        );
-      }
-    };
-
-    document.addEventListener('DOMContentLoaded', () =>
-      document.body.addEventListener('click', subscribeToNofitications),
-    );
-</script>
 </head>
-<body class="pending">
+<body class="{{ bodyClass }}">
   <img class="stopped" src="img/stopped.svg" alt="" />
   <img class="running" src="img/running.svg" alt="" />
 </body>

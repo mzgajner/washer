@@ -1,7 +1,6 @@
 {
   "name": "Washer",
-  "gcm_sender_id": "806065617495",
-  "start_url": "/index.html",
+  "start_url": "/",
   "icons": [{
     "src" : "img/notification-icon.png",
     "sizes" : "192x192",
